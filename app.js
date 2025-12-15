@@ -1,6 +1,90 @@
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
+  initSpeech();
 });
+
+const spanishWords = ['manzana', 'plátano', 'naranja', 'hola', 'gracias', 'agua', 'libro', 'casa'];
+let currentWordIndex = 0;
+
+function initSpeech() {
+  const hearBtn = document.getElementById('hear-btn');
+  const speakBtn = document.getElementById('speak-btn');
+  const nextWordBtn = document.getElementById('next-word-btn');
+  const wordDisplay = document.getElementById('word-display');
+  const status = document.getElementById('speech-status');
+  const result = document.getElementById('speech-result');
+
+  const synth = window.speechSynthesis;
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition = null;
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'es-ES';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = function() {
+      status.textContent = 'Listening... Speak now!';
+      status.className = 'status listening';
+    };
+
+    recognition.onresult = function(event) {
+      const spoken = event.results[0][0].transcript.toLowerCase();
+      const target = wordDisplay.textContent.toLowerCase();
+      
+      status.textContent = '';
+      status.className = 'status';
+      
+      if (spoken === target) {
+        result.textContent = 'Correct! You said: "' + spoken + '"';
+        result.className = 'result correct';
+      } else {
+        result.textContent = 'You said: "' + spoken + '" - Expected: "' + target + '"';
+        result.className = 'result incorrect';
+      }
+    };
+
+    recognition.onerror = function() {
+      status.textContent = 'Error. Please try again.';
+      status.className = 'status';
+    };
+
+    recognition.onend = function() {
+      if (status.textContent === 'Listening... Speak now!') {
+        status.textContent = 'Did not hear anything. Try again.';
+        status.className = 'status';
+      }
+    };
+  }
+
+  hearBtn.addEventListener('click', function() {
+    const word = wordDisplay.textContent;
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = 'es-ES';
+    utterance.rate = 0.8;
+    synth.speak(utterance);
+  });
+
+  speakBtn.addEventListener('click', function() {
+    if (recognition) {
+      result.textContent = '';
+      result.className = 'result';
+      recognition.start();
+    } else {
+      status.textContent = 'Speech recognition not supported in this browser.';
+    }
+  });
+
+  nextWordBtn.addEventListener('click', function() {
+    currentWordIndex = (currentWordIndex + 1) % spanishWords.length;
+    wordDisplay.textContent = spanishWords[currentWordIndex];
+    result.textContent = '';
+    result.className = 'result';
+    status.textContent = '';
+    status.className = 'status';
+  });
+}
 
 function initApp() {
   const canvas = document.getElementById('sketch-canvas');

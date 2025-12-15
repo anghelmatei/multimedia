@@ -15,15 +15,18 @@
 
     <main id="app" class="container">
 
-      <section id="analysis" class="section">
-        <h2 class="section-title">Results & Feedback</h2>
-        <div class="card placeholder">
-          <p class="muted">Analysis results will appear here.</p>
-          <ul class="checklist">
-            <li>Target sounds to improve</li>
-            <li>Syllable stress suggestions</li>
-            <li>Tempo and clarity tips</li>
-          </ul>
+      <section id="audio" class="section">
+        <h2 class="section-title">Pronunciation Practice</h2>
+        <div class="card">
+          <p class="muted">Click "Hear Word" to listen, then "Speak" to practice your pronunciation.</p>
+          <div class="word-display" id="word-display">manzana</div>
+          <div class="controls-row">
+            <button id="hear-btn" class="btn">Hear Word</button>
+            <button id="speak-btn" class="btn">Speak</button>
+            <button id="next-word-btn" class="btn btn-secondary">Next Word</button>
+          </div>
+          <div id="speech-status" class="status"></div>
+          <div id="speech-result" class="result"></div>
         </div>
       </section>
 
