@@ -45,14 +45,22 @@
       <section id="video-prompt" class="section">
         <h2 class="section-title">Video prompt</h2>
         <div class="card">
-          <p class="muted">A short clip will play; write the item in Spanish.</p>
-          <video id="prompt-video" controls>
+          <p class="muted">Watch the video, then write what action you see in Spanish.</p>
+          <video id="prompt-video">
             <source src="media/example.mp4" type="video/mp4" />
           </video>
+          <div class="video-controls">
+            <button id="video-play" class="btn">Play</button>
+            <button id="video-stop" class="btn btn-secondary">Stop</button>
+            <input type="range" id="video-progress" value="0" min="0" max="100">
+            <span id="video-time">0:00 / 0:00</span>
+          </div>
           <div class="controls-row">
             <input id="video-answer" name="video-answer" type="text" placeholder="Write the item in Spanish" />
-            <button id="video-analyze" class="btn">Analyze</button>
+            <button id="video-check" class="btn">Check Answer</button>
+            <button id="video-next" class="btn btn-secondary">Next Video</button>
           </div>
+          <div id="video-result" class="result"></div>
         </div>
       </section>
     </main>

@@ -1,10 +1,111 @@
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
   initSpeech();
+  initVideo();
 });
 
 const spanishWords = ['manzana', 'plátano', 'naranja', 'hola', 'gracias', 'agua', 'libro', 'casa'];
 let currentWordIndex = 0;
+
+const videoItems = [
+  { video: 'media/comer.mp4', answer: 'comer' },
+  { video: 'media/beber.mp4', answer: 'beber' },
+  { video: 'media/dormir.mp4', answer: 'dormir' }
+];
+let currentVideoIndex = 0;
+
+function initVideo() {
+  const video = document.getElementById('prompt-video');
+  const playBtn = document.getElementById('video-play');
+  const stopBtn = document.getElementById('video-stop');
+  const progress = document.getElementById('video-progress');
+  const timeDisplay = document.getElementById('video-time');
+  const checkBtn = document.getElementById('video-check');
+  const nextBtn = document.getElementById('video-next');
+  const answerInput = document.getElementById('video-answer');
+  const resultDiv = document.getElementById('video-result');
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return mins + ':' + (secs < 10 ? '0' : '') + secs;
+  }
+
+  function updateTime() {
+    const current = formatTime(video.currentTime);
+    const duration = formatTime(video.duration || 0);
+    timeDisplay.textContent = current + ' / ' + duration;
+  }
+
+  playBtn.addEventListener('click', function() {
+    if (video.paused) {
+      video.play();
+      playBtn.textContent = 'Pause';
+    } else {
+      video.pause();
+      playBtn.textContent = 'Play';
+    }
+  });
+
+  stopBtn.addEventListener('click', function() {
+    video.pause();
+    video.currentTime = 0;
+    playBtn.textContent = 'Play';
+  });
+
+  video.addEventListener('timeupdate', function() {
+    const percent = (video.currentTime / video.duration) * 100;
+    progress.value = percent || 0;
+    updateTime();
+  });
+
+  video.addEventListener('loadedmetadata', function() {
+    updateTime();
+  });
+
+  video.addEventListener('ended', function() {
+    playBtn.textContent = 'Play';
+  });
+
+  video.addEventListener('play', function() {
+    playBtn.textContent = 'Pause';
+  });
+
+  video.addEventListener('pause', function() {
+    playBtn.textContent = 'Play';
+  });
+
+  progress.addEventListener('input', function() {
+    const time = (progress.value / 100) * video.duration;
+    video.currentTime = time;
+  });
+
+  video.src = videoItems[currentVideoIndex].video;
+  video.load();
+
+  checkBtn.addEventListener('click', function() {
+    const userAnswer = answerInput.value.trim().toLowerCase();
+    const correctAnswer = videoItems[currentVideoIndex].answer.toLowerCase();
+    
+    if (userAnswer === correctAnswer) {
+      resultDiv.textContent = 'Correct! The answer is "' + correctAnswer + '"';
+      resultDiv.className = 'result correct';
+    } else {
+      resultDiv.textContent = 'Incorrect. You wrote: "' + userAnswer + '" - Correct: "' + correctAnswer + '"';
+      resultDiv.className = 'result incorrect';
+    }
+  });
+
+  nextBtn.addEventListener('click', function() {
+    currentVideoIndex = (currentVideoIndex + 1) % videoItems.length;
+    video.src = videoItems[currentVideoIndex].video;
+    video.load();
+    answerInput.value = '';
+    resultDiv.textContent = '';
+    resultDiv.className = 'result';
+    playBtn.textContent = 'Play';
+  });
+}
 
 function initSpeech() {
   const hearBtn = document.getElementById('hear-btn');
@@ -108,20 +209,6 @@ function initApp() {
     app.nextImage();
     textInput.value = '';
   });
-
-  const analyzeBtn = document.getElementById('video-analyze');
-  const videoAnswerInput = document.getElementById('video-answer');
-  const promptVideo = document.getElementById('prompt-video');
-
-  if (analyzeBtn && videoAnswerInput) {
-    analyzeBtn.addEventListener('click', () => {
-      const answer = videoAnswerInput.value.trim();
-      handleVideoAnalysis(answer, promptVideo);
-      videoAnswerInput.value = '';
-    });
-  }
-
-  
 
   window.addEventListener('resize', () => app.resize());
 }
@@ -328,20 +415,6 @@ function initCanvas(canvas) {
     hintText = word || '';
     redraw();
   }
-
-  function handleVideoAnalysis(answer, videoEl) {
-    const analysisCard = document.querySelector('#analysis .card');
-    if (!analysisCard) return;
-
-    const p = document.createElement('p');
-    p.className = 'muted';
-    p.textContent = `Video answer submitted: ${answer || '(no answer)'} — (placeholder analysis)`;
-    analysisCard.appendChild(p);
-
-    try { if (videoEl && videoEl.pause) { videoEl.currentTime = 0; videoEl.play(); } } catch (e) {}
-  }
-
-  
 
   function drawHintText(text) {
     const w = canvas.clientWidth;
