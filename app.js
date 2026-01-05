@@ -267,6 +267,9 @@ function initCanvas(canvas) {
   let hintText = '';          // User's typed text
   let currentImage = 0;       // Which fruit (0=apple, 1=banana, 2=orange)
   
+  // Correct Spanish names for each fruit
+  const fruitNames = ['manzana', 'platano', 'naranja']; // apple, banana, orange
+  
   // Adjusts canvas size for responsive display and high-DPI
   function resize() {
     const width = canvas.clientWidth;   // CSS width
@@ -477,9 +480,16 @@ function initCanvas(canvas) {
     redraw();
   }
   
-  // Set text to display
+  // Set text to display (only if correct)
   function writeText(word) {
-    hintText = word || ''; // Use word or empty string if null/undefined
+    const correctWord = fruitNames[currentImage]; // Get the correct word for current fruit
+    const userWord = (word || '').toLowerCase().trim(); // Normalize user input
+    
+    if (userWord === correctWord) {
+      hintText = word.trim(); // Only write if correct
+    } else {
+      hintText = ''; // Don't write incorrect words
+    }
     redraw();
   }
 
