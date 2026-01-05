@@ -1,318 +1,172 @@
-/* ============================================================
-   CSS (Cascading Style Sheets) - STYLES.CSS
-   ============================================================
-   CSS is used to style and layout HTML elements. It controls
-   colors, fonts, spacing, positioning, and visual appearance.
-   
-   This file styles our Spanish Pronunciation Coach app.
-   ============================================================ */
+/* Spanish Pronunciation Coach - Styles */
 
-/* ------------------------------------------------------------
-   CSS VARIABLES (Custom Properties)
-   ------------------------------------------------------------
-   :root is a special selector that targets the root element 
-   of the document (the <html> tag). It's commonly used to 
-   define CSS variables that can be reused throughout the file.
-   
-   CSS variables start with -- and are accessed using var()
-   This makes it easy to change colors in one place and have
-   them update everywhere they're used.
-   ------------------------------------------------------------ */
+/* CSS Variables - reusable colors */
 :root {
-  --bg: #fff8e7;        /* Main background color - cream/off-white */
-  --primary: #ffd400;   /* Primary brand color - bright yellow */
-  --text: #222;         /* Main text color - almost black */
-  --muted: #666;        /* Subdued text color - gray */
-  --card: #fff;         /* Card background - pure white */
-  --border: #e6e0c8;    /* Border color - light tan */
-  --accent: #e0c700;    /* Accent color - darker yellow */
+  --bg: #fff8e7;        /* Cream background */
+  --primary: #ffd400;   /* Yellow buttons */
+  --text: #222;         /* Dark text */
+  --muted: #666;        /* Gray helper text */
+  --card: #fff;         /* White cards */
+  --border: #e6e0c8;    /* Tan borders */
+  --accent: #e0c700;    /* Darker yellow */
 }
 
-/* ------------------------------------------------------------
-   UNIVERSAL SELECTOR (*)
-   ------------------------------------------------------------
-   The * selector targets ALL elements on the page.
-   
-   box-sizing: border-box - This is a crucial property that
-   changes how width/height are calculated. With border-box,
-   padding and borders are INCLUDED in the element's total
-   width/height, making layouts much easier to manage.
-   Without it, a 100px wide box with 10px padding would 
-   actually be 120px wide (100 + 10 + 10).
-   ------------------------------------------------------------ */
-* { box-sizing: border-box; }
+* { box-sizing: border-box; } /* Include padding/border in width calculations */
 
-/* ------------------------------------------------------------
-   HTML & BODY RESET
-   ------------------------------------------------------------
-   Browsers apply default styles (margins, padding) to elements.
-   This "reset" removes the default margin and padding from
-   html and body elements to give us a clean starting point.
-   ------------------------------------------------------------ */
 html, body {
-  margin: 0;   /* Remove default outer spacing */
-  padding: 0;  /* Remove default inner spacing */
+  margin: 0;
+  padding: 0;
 }
 
-/* ------------------------------------------------------------
-   BODY STYLES
-   ------------------------------------------------------------
-   The body element contains all visible content on the page.
-   These styles set the foundation for the entire app's look.
-   ------------------------------------------------------------ */
 body {
-  background: var(--bg);  /* Sets background using our CSS variable */
-  color: var(--text);     /* Sets default text color */
-  
-  /* font-family: A list of fonts in order of preference.
-     The browser uses the first available font.
-     system-ui = the device's default system font
-     -apple-system = Apple devices font
-     Segoe UI = Windows font
-     Roboto = Android font
-     Arial, sans-serif = fallback options */
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  
-  /* line-height: Space between lines of text.
-     1.5 means 150% of the font size - makes text easier to read */
-  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; /* Use system fonts */
+  line-height: 1.5; /* 150% line height for readability */
 }
 
-/* ------------------------------------------------------------
-   CONTAINER CLASS
-   ------------------------------------------------------------
-   A container is a wrapper that centers and limits the width
-   of content. This prevents text from stretching too wide on
-   large screens, which would make it hard to read.
-   ------------------------------------------------------------ */
 .container {
-  max-width: 960px;    /* Content won't exceed 960 pixels wide */
-  margin: 0 auto;      /* 0 top/bottom, auto left/right = centers horizontally */
-  padding: 0 16px;     /* 16px padding on left and right sides */
+  max-width: 960px;    /* Limit content width */
+  margin: 0 auto;      /* Center horizontally */
+  padding: 0 16px;     /* Side padding */
 }
 
-/* ------------------------------------------------------------
-   SITE HEADER
-   ------------------------------------------------------------
-   The header appears at the top of the page with the app title.
-   ------------------------------------------------------------ */
 .site-header {
-  background: var(--primary);            /* Yellow background */
-  color: #1a1a1a;                         /* Very dark text */
-  padding: 16px 0;                        /* 16px top and bottom padding */
-  border-bottom: 1px solid var(--accent); /* Thin line at bottom */
+  background: var(--primary);
+  color: #1a1a1a;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--accent);
 }
 
-/* ------------------------------------------------------------
-   SECTION STYLES
-   ------------------------------------------------------------
-   Sections divide the page into logical areas (audio, canvas, video).
-   ------------------------------------------------------------ */
 .section {
-  margin: 20px 0;  /* 20px space above and below each section */
+  margin: 20px 0;
 }
 
 .section-title {
-  margin: 0 0 8px;   /* No top margin, 8px bottom margin */
-  font-size: 18px;   /* Slightly larger text for headings */
+  margin: 0 0 8px;
+  font-size: 18px;
 }
 
-/* ------------------------------------------------------------
-   CARD COMPONENT
-   ------------------------------------------------------------
-   Cards are containers that group related content together.
-   They create visual separation with a white background,
-   border, and rounded corners.
-   ------------------------------------------------------------ */
 .card {
-  background: var(--card);           /* White background */
-  border: 1px solid var(--border);   /* 1px solid tan border */
-  border-radius: 6px;                /* Rounded corners (6px radius) */
-  padding: 12px;                     /* 12px inner spacing on all sides */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;       /* Rounded corners */
+  padding: 12px;
 }
 
-/* ------------------------------------------------------------
-   PLACEHOLDER CLASS
-   ------------------------------------------------------------
-   Used for empty/placeholder content with dashed borders.
-   ------------------------------------------------------------ */
 .placeholder {
-  background: var(--bg);     /* Cream background */
-  border-style: dashed;      /* Dashed instead of solid border */
+  background: var(--bg);
+  border-style: dashed;
 }
 
-/* ------------------------------------------------------------
-   MUTED TEXT
-   ------------------------------------------------------------
-   For less important, helper text that should be subtle.
-   ------------------------------------------------------------ */
 .muted {
-  color: var(--muted);   /* Gray color */
-  margin: 0 0 8px;       /* 8px bottom margin */
-  font-size: 14px;       /* Smaller text size */
+  color: var(--muted);
+  margin: 0 0 8px;
+  font-size: 14px;
 }
 
-/* ------------------------------------------------------------
-   CONTROLS ROW (Flexbox Layout)
-   ------------------------------------------------------------
-   Flexbox is a CSS layout system that makes it easy to
-   arrange elements in rows or columns with proper spacing.
-   ------------------------------------------------------------ */
 .controls-row {
-  display: flex;     /* Enables flexbox - children arrange in a row */
-  gap: 8px;          /* 8px space between each child element */
-  flex-wrap: wrap;   /* If not enough space, items wrap to next line */
-  margin: 8px 0;     /* 8px margin top and bottom */
+  display: flex;        /* Flexbox layout */
+  gap: 8px;             /* Space between items */
+  flex-wrap: wrap;      /* Wrap to next line if needed */
+  margin: 8px 0;
 }
 
-/* ------------------------------------------------------------
-   BUTTON STYLES
-   ------------------------------------------------------------
-   .btn is the base button class with primary (yellow) styling.
-   ------------------------------------------------------------ */
 .btn {
-  border: 1px solid var(--accent);   /* Border using accent color */
-  background: var(--primary);        /* Yellow background */
-  color: #1a1a1a;                    /* Dark text */
-  padding: 8px 12px;                 /* 8px top/bottom, 12px left/right */
-  border-radius: 4px;                /* Slightly rounded corners */
-  font: inherit;                     /* Inherit font from parent (body) */
+  border: 1px solid var(--accent);
+  background: var(--primary);
+  color: #1a1a1a;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font: inherit;        /* Use parent font */
 }
 
-/* Secondary button - a lighter, less prominent style */
 .btn-secondary {
-  background: #fff9c4;               /* Light yellow background */
-  border-color: var(--border);       /* Tan border */
+  background: #fff9c4;  /* Light yellow */
+  border-color: var(--border);
 }
 
-/* ------------------------------------------------------------
-   CHECKLIST STYLES
-   ------------------------------------------------------------
-   For ordered/unordered list items.
-   ------------------------------------------------------------ */
 .checklist {
-  margin: 0;           /* Remove default margin */
-  padding-left: 18px;  /* Indent for bullet/number alignment */
+  margin: 0;
+  padding-left: 18px;
 }
 
-/* ------------------------------------------------------------
-   MEDIA ELEMENTS (Video, Canvas, Audio)
-   ------------------------------------------------------------
-   These styles ensure media elements are responsive and
-   display properly across different screen sizes.
-   ------------------------------------------------------------ */
 video, canvas, audio {
-  width: 100%;       /* Take full width of parent container */
-  height: auto;      /* Height adjusts automatically to maintain ratio */
-  display: block;    /* Block display removes unwanted spacing below */
+  width: 100%;          /* Full width */
+  height: auto;         /* Maintain aspect ratio */
+  display: block;       /* Remove bottom spacing */
 }
 
-/* Additional styles specifically for video and canvas */
 video, canvas {
-  border: 1px solid var(--border);  /* Tan border */
-  border-radius: 6px;               /* Rounded corners */
+  border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
-/* ------------------------------------------------------------
-   ID SELECTORS
-   ------------------------------------------------------------
-   IDs target ONE specific element (using #).
-   Classes (using .) can be used on multiple elements.
-   IDs have higher specificity (priority) than classes.
-   ------------------------------------------------------------ */
-
-/* The canvas element where fruits are drawn */
 #sketch-canvas {
-  background: var(--card);  /* White background */
+  background: var(--card);
 }
 
-/* The video player element */
 #prompt-video {
-  background: #000;    /* Black background (shows before video loads) */
-  margin-top: 6px;     /* Small space above */
+  background: #000;     /* Black background */
+  margin-top: 6px;
 }
 
-/* ------------------------------------------------------------
-   WORD DISPLAY
-   ------------------------------------------------------------
-   Shows the Spanish word that users need to pronounce.
-   ------------------------------------------------------------ */
 .word-display {
-  font-size: 32px;           /* Large text for easy reading */
-  font-weight: bold;         /* Bold text */
-  text-align: center;        /* Center the text horizontally */
-  padding: 20px;             /* 20px padding on all sides */
-  background: var(--bg);     /* Cream background */
-  border-radius: 6px;        /* Rounded corners */
-  margin-bottom: 12px;       /* 12px space below */
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  background: var(--bg);
+  border-radius: 6px;
+  margin-bottom: 12px;
 }
 
-/* ------------------------------------------------------------
-   STATUS INDICATOR
-   ------------------------------------------------------------
-   Shows the current state (listening, error, etc.)
-   ------------------------------------------------------------ */
 .status {
-  padding: 8px;          /* Inner spacing */
-  margin-top: 8px;       /* Space above */
-  border-radius: 4px;    /* Rounded corners */
-  text-align: center;    /* Center text */
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  text-align: center;
 }
 
-/* When actively listening for speech - yellow/warning style */
 .status.listening {
-  background: #fff3cd;   /* Light yellow background */
-  color: #856404;        /* Dark yellow/brown text */
+  background: #fff3cd;  /* Yellow background */
+  color: #856404;       /* Brown text */
 }
 
-/* ------------------------------------------------------------
-   RESULT DISPLAY
-   ------------------------------------------------------------
-   Shows whether the user's answer was correct or incorrect.
-   ------------------------------------------------------------ */
 .result {
-  margin-top: 12px;      /* Space above */
-  padding: 12px;         /* Inner spacing */
-  border-radius: 6px;    /* Rounded corners */
-  text-align: center;    /* Center text */
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
 }
 
-/* Correct answer - green success colors */
 .result.correct {
-  background: #d4edda;   /* Light green background */
-  color: #155724;        /* Dark green text */
+  background: #d4edda;  /* Green */
+  color: #155724;
 }
 
-/* Incorrect answer - red error colors */
 .result.incorrect {
-  background: #f8d7da;   /* Light red/pink background */
-  color: #721c24;        /* Dark red text */
+  background: #f8d7da;  /* Red */
+  color: #721c24;
 }
 
-/* ------------------------------------------------------------
-   VIDEO CONTROLS BAR
-   ------------------------------------------------------------
-   Custom controls for the video player (play, stop, progress).
-   ------------------------------------------------------------ */
 .video-controls {
-  display: flex;              /* Flexbox for horizontal layout */
-  align-items: center;        /* Vertically center all items */
-  gap: 8px;                   /* Space between items */
-  padding: 8px;               /* Inner spacing */
-  background: #333;           /* Dark gray background */
-  border-radius: 0 0 6px 6px; /* Rounded only on bottom corners */
-  margin-top: -6px;           /* Pull up slightly to overlap video */
+  display: flex;
+  align-items: center;  /* Vertically center items */
+  gap: 8px;
+  padding: 8px;
+  background: #333;     /* Dark background */
+  border-radius: 0 0 6px 6px; /* Round only bottom corners */
+  margin-top: -6px;     /* Pull up to overlap video */
 }
 
-/* The progress/seek slider for video playback */
 .video-controls input[type="range"] {
-  flex: 1;          /* Take up all available remaining space */
-  cursor: pointer;  /* Show hand cursor on hover */
+  flex: 1;              /* Take remaining space */
+  cursor: pointer;
 }
 
-/* Time display showing current time / total duration */
 #video-time {
-  color: #fff;       /* White text */
-  font-size: 12px;   /* Small text */
-  min-width: 80px;   /* Minimum width to prevent jumping when numbers change */
+  color: #fff;
+  font-size: 12px;
+  min-width: 80px;      /* Prevent text jumping */
 }

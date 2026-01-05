@@ -1,326 +1,107 @@
-<!--
-============================================================
-HTML (HyperText Markup Language) - INDEX.HTML
-============================================================
-HTML is the foundation of web pages. It uses "tags" to structure
-content. Tags look like <tagname> and usually have a closing tag
-</tagname>. Tags can have "attributes" that provide extra info
-like id="name" or class="style".
+<!-- Spanish Pronunciation Coach - Main HTML structure -->
 
-This file creates the structure of our Spanish learning app.
-============================================================
--->
+<!doctype html> <!-- Declares HTML5 document -->
 
-<!doctype html>
-<!-- 
-  DOCTYPE tells the browser this is an HTML5 document.
-  Without it, browsers might render the page incorrectly.
--->
+<html lang="en"> <!-- Root element, English language -->
 
-<html lang="en">
-<!-- 
-  <html> is the root element that contains all page content.
-  lang="en" tells browsers and screen readers the page is in English.
--->
+  <head> <!-- Page metadata (not visible to users) -->
+    
+    <meta charset="utf-8" /> <!-- UTF-8 encoding for all languages (supports á, ñ, etc.) -->
 
-  <head>
-    <!--
-      <head> contains meta-information about the page.
-      Content here is NOT visible on the page itself.
-      It includes settings, links to styles, and page title.
-    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Responsive design for mobile -->
 
-    <meta charset="utf-8" />
-    <!--
-      charset="utf-8" defines the character encoding.
-      UTF-8 supports virtually all characters and symbols 
-      from all languages (including Spanish accents like á, ñ, etc.)
-    -->
+    <title>Spanish Pronunciation Coach</title> <!-- Browser tab title -->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--
-      viewport meta tag makes the page responsive on mobile devices.
-      width=device-width: page width matches the device's screen width
-      initial-scale=1: no zoom when page first loads
-      Without this, mobile browsers would show a tiny desktop version.
-    -->
-
-    <title>Spanish Pronunciation Coach</title>
-    <!--
-      <title> sets the text shown in the browser tab/window.
-      It's also used by search engines and bookmarks.
-    -->
-
-    <link rel="stylesheet" href="styles.css" />
-    <!--
-      <link> connects external files to this HTML document.
-      rel="stylesheet": defines the relationship (a CSS stylesheet)
-      href="styles.css": path to the CSS file
-      This loads all our visual styles.
-    -->
+    <link rel="stylesheet" href="styles.css" /> <!-- Load CSS styles -->
   </head>
 
-  <body>
-    <!--
-      <body> contains ALL visible content on the page.
-      Everything users see and interact with goes here.
-    -->
+  <body> <!-- All visible page content -->
 
-    <header class="site-header">
-      <!--
-        <header> is a semantic tag for introductory content.
-        Semantic tags describe their purpose (vs generic <div>).
-        class="site-header": applies CSS styles from .site-header
-      -->
-      <div class="container">
-        <!--
-          <div> is a generic container element used for grouping.
-          class="container": centers content and limits max-width
-        -->
-        <h1>Yapy - Learn Spanish by speaking it</h1>
-        <!--
-          <h1> is the main heading (most important).
-          Headings go from <h1> (biggest/most important) to <h6> (smallest).
-          Each page should have only ONE <h1> for SEO and accessibility.
-        -->
+    <header class="site-header"> <!-- Page header with branding -->
+      <div class="container"> <!-- Centers content, limits width -->
+        <h1>Yapy - Learn Spanish by speaking it</h1> <!-- Main heading (only one h1 per page) -->
       </div>
     </header>
 
-    <main id="app" class="container">
-      <!--
-        <main> is a semantic tag for the main content area.
-        id="app": unique identifier (used by JavaScript to find this element)
-        IDs must be unique - only one element can have a specific ID.
-        class="container": applies the centering container styles
-      -->
+    <main id="app" class="container"> <!-- Main content area, centered -->
 
-      <!-- ============================================================
-           SECTION 1: PRONUNCIATION PRACTICE (Audio/Speech)
-           This section uses Web Speech API for text-to-speech and
-           speech recognition to help users practice pronunciation.
-           ============================================================ -->
-      <section id="audio" class="section">
-        <!--
-          <section> is a semantic tag for a standalone section of content.
-          id="audio": unique identifier for this section
-          class="section": applies section spacing styles
-        -->
-        <h2 class="section-title">Pronunciation Practice</h2>
-        <!--
-          <h2> is a secondary heading (subheading under h1).
-          Used to title this section of the app.
-        -->
+      <!-- SECTION 1: PRONUNCIATION PRACTICE (Audio API - Web Speech API) -->
+      <section id="audio" class="section"> <!-- Pronunciation practice section -->
+        <h2 class="section-title">Pronunciation Practice</h2> <!-- Section heading -->
 
-        <div class="card">
-          <!-- Card container groups all pronunciation practice content -->
+        <div class="card"> <!-- Card groups pronunciation content -->
 
-          <p class="muted">Click "Hear Word" to listen, then "Speak" to practice your pronunciation.</p>
-          <!--
-            <p> is a paragraph element for text content.
-            class="muted": makes text gray and smaller (helper text)
-          -->
+          <p class="muted">Click "Hear Word" to listen, then "Speak" to practice your pronunciation.</p> <!-- Instructions -->
 
-          <div class="word-display" id="word-display">manzana</div>
-          <!--
-            Displays the current Spanish word to practice.
-            id="word-display": JavaScript uses this to change the word
-            The text "manzana" (apple) is the initial/default word.
-          -->
+          <div class="word-display" id="word-display">manzana</div> <!-- Current Spanish word to practice -->
 
-          <div class="controls-row">
-            <!--
-              controls-row uses CSS flexbox to arrange buttons horizontally
-            -->
+          <div class="controls-row"> <!-- Flexbox row for buttons -->
 
-            <button id="hear-btn" class="btn">Hear Word</button>
-            <!--
-              <button> creates a clickable button element.
-              id="hear-btn": JavaScript listens for clicks on this ID
-              class="btn": applies primary button styling (yellow)
-              When clicked: plays audio pronunciation of the word
-            -->
+            <button id="hear-btn" class="btn">Hear Word</button> <!-- Plays audio pronunciation (Text-to-Speech) -->
 
-            <button id="speak-btn" class="btn">Speak</button>
-            <!--
-              When clicked: starts listening for user's voice
-              Uses browser's speech recognition API
-            -->
+            <button id="speak-btn" class="btn">Speak</button> <!-- Starts listening to user's voice (Speech Recognition) -->
 
-            <button id="next-word-btn" class="btn btn-secondary">Next Word</button>
-            <!--
-              btn-secondary: applies lighter secondary button style
-              When clicked: shows the next Spanish word to practice
-            -->
+            <button id="next-word-btn" class="btn btn-secondary">Next Word</button> <!-- Shows next Spanish word -->
           </div>
 
-          <div id="speech-status" class="status"></div>
-          <!--
-            Empty div that JavaScript fills with status messages
-            like "Listening..." or "Error occurred"
-            Initially empty - content added dynamically via JS
-          -->
+          <div id="speech-status" class="status"></div> <!-- JS fills this with status ("Listening...", etc.) -->
 
-          <div id="speech-result" class="result"></div>
-          <!--
-            Shows whether the pronunciation was correct or incorrect.
-            JavaScript adds "correct" or "incorrect" class to change colors.
-          -->
+          <div id="speech-result" class="result"></div> <!-- Shows correct/incorrect feedback -->
         </div>
       </section>
 
-      <!-- ============================================================
-           SECTION 2: CANVAS (Drawing/Graphics)
-           This section uses the HTML5 Canvas API to draw graphics
-           programmatically with JavaScript.
-           ============================================================ -->
-      <section id="sketch" class="section">
+      <!-- SECTION 2: CANVAS (Canvas API - 2D Drawing) -->
+      <section id="sketch" class="section"> <!-- Canvas drawing section -->
         <h2 class="section-title">Canvas</h2>
 
         <div class="card">
-          <canvas id="sketch-canvas" width="480" height="280"></canvas>
-          <!--
-            <canvas> is a special HTML5 element for drawing graphics.
-            Unlike images, canvas content is created with JavaScript code.
-            
-            width="480" height="280": sets the canvas resolution in pixels
-            (Note: CSS can scale it, but this is the actual drawing area)
-            
-            id="sketch-canvas": JavaScript uses this to get the canvas
-            and draw on it using the Canvas API (2D drawing context)
-            
-            Our app draws fruits (apple, banana, orange) on this canvas.
-          -->
+          <canvas id="sketch-canvas" width="480" height="280"></canvas> <!-- Canvas for drawing fruits (480x280 resolution) -->
 
           <div class="controls-row">
-            <input id="sketch-text" type="text" placeholder="Write the word here" />
-            <!--
-              <input> creates an interactive form field.
-              type="text": a single-line text input box
-              placeholder: gray hint text shown when input is empty
-              id="sketch-text": JavaScript reads the typed value from here
-            -->
+            <input id="sketch-text" type="text" placeholder="Write the word here" /> <!-- Text input for Spanish word -->
 
-            <button id="sketch-write" class="btn">Write Word</button>
-            <!--
-              When clicked: draws the typed word on the canvas
-            -->
+            <button id="sketch-write" class="btn">Write Word</button> <!-- Draws typed word on canvas -->
 
-            <button id="sketch-next" class="btn btn-secondary">Next</button>
-            <!--
-              When clicked: shows the next fruit image on the canvas
-            -->
+            <button id="sketch-next" class="btn btn-secondary">Next</button> <!-- Shows next fruit image -->
           </div>
         </div>
       </section>
 
-      <!-- ============================================================
-           SECTION 3: VIDEO PROMPT
-           This section uses the HTML5 Video API for playback control
-           and tests vocabulary comprehension with video prompts.
-           ============================================================ -->
-      <section id="video-prompt" class="section">
+      <!-- SECTION 3: VIDEO PROMPT (Video API - Custom Controls) -->
+      <section id="video-prompt" class="section"> <!-- Video comprehension section -->
         <h2 class="section-title">Video prompt</h2>
 
         <div class="card">
           <p class="muted">Watch the video, then write what action you see in Spanish.</p>
 
-          <video id="prompt-video">
-            <!--
-              <video> embeds a video player in the page.
-              id="prompt-video": JavaScript controls playback via this ID
-              
-              Note: We removed the "controls" attribute because we're
-              creating custom controls below for a better user experience.
-            -->
-            <source src="media/example.mp4" type="video/mp4" />
-            <!--
-              <source> specifies the video file to play.
-              src: path to the video file
-              type="video/mp4": tells browser the video format (MIME type)
-              
-              You can have multiple <source> tags for different formats
-              (mp4, webm, ogg) and browser picks the first it supports.
-            -->
+          <video id="prompt-video"> <!-- Video element (custom controls, no browser defaults) -->
+            <source src="media/comer.mp4" type="video/mp4" /> <!-- Video source file (mp4 format) -->
           </video>
 
-          <div class="video-controls">
-            <!--
-              Custom video control bar (dark background)
-              We build our own controls instead of using browser defaults
-              This gives us more control over appearance and behavior.
-            -->
+          <div class="video-controls"> <!-- Custom control bar -->
 
-            <button id="video-play" class="btn">Play</button>
-            <!--
-              Play/Pause toggle button.
-              JavaScript changes text to "Pause" when playing.
-            -->
+            <button id="video-play" class="btn">Play</button> <!-- Play/Pause toggle -->
 
-            <button id="video-stop" class="btn btn-secondary">Stop</button>
-            <!--
-              Stop button - pauses video AND resets to beginning (time 0)
-            -->
+            <button id="video-stop" class="btn btn-secondary">Stop</button> <!-- Stops and resets to start -->
 
-            <input type="range" id="video-progress" value="0" min="0" max="100">
-            <!--
-              type="range": creates a slider control
-              This is the progress/seek bar for the video.
-              
-              value="0": starts at position 0 (beginning)
-              min="0" max="100": slider range is 0 to 100 (percentage)
-              
-              JavaScript updates this as video plays, and users can
-              drag it to seek to different parts of the video.
-            -->
+            <input type="range" id="video-progress" value="0" min="0" max="100"> <!-- Progress/seek slider (0-100%) -->
 
-            <span id="video-time">0:00 / 0:00</span>
-            <!--
-              <span> is an inline container for text.
-              Shows "current time / total duration" of video.
-              JavaScript updates this as the video plays.
-            -->
+            <span id="video-time">0:00 / 0:00</span> <!-- Current time / Total duration -->
           </div>
 
           <div class="controls-row">
-            <input id="video-answer" name="video-answer" type="text" placeholder="Write the item in Spanish" />
-            <!--
-              Text input where user types their answer.
-              name="video-answer": identifies the field (useful for forms)
-            -->
+            <input id="video-answer" name="video-answer" type="text" placeholder="Write the item in Spanish" /> <!-- Answer input -->
 
-            <button id="video-check" class="btn">Check Answer</button>
-            <!--
-              When clicked: compares user's answer to correct answer
-            -->
+            <button id="video-check" class="btn">Check Answer</button> <!-- Checks user's answer -->
 
-            <button id="video-next" class="btn btn-secondary">Next Video</button>
-            <!--
-              When clicked: loads the next video in the sequence
-            -->
+            <button id="video-next" class="btn btn-secondary">Next Video</button> <!-- Loads next video -->
           </div>
 
-          <div id="video-result" class="result"></div>
-          <!--
-            Shows correct/incorrect feedback after checking answer.
-            JavaScript adds appropriate CSS class for green/red coloring.
-          -->
+          <div id="video-result" class="result"></div> <!-- Correct/incorrect feedback -->
         </div>
       </section>
     </main>
 
-    <script src="app.js" defer></script>
-    <!--
-      <script> loads and executes JavaScript code.
-      src="app.js": path to our JavaScript file
-      
-      defer: IMPORTANT! This tells the browser to:
-        1. Download the script in parallel with HTML parsing
-        2. Execute it AFTER the HTML is fully parsed
-      
-      Without defer, JavaScript might run before elements exist,
-      causing errors like "Cannot find element with id 'xxx'"
-      
-      Alternative: putting <script> at end of body (before </body>)
-    -->
+    <script src="app.js" defer></script> <!-- Load JS after HTML is fully parsed (defer prevents errors) -->
   </body>
 </html>
